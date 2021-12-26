@@ -7,6 +7,10 @@ const projectSchema = new Schema(
 		title: String,
 		description: String,
 		tasks: [taskSchema],
+		owner: {
+			type: mongoose.Types.ObjectId,
+			reef: 'User',
+		},
 	},
 	{
 		timestamps: true,

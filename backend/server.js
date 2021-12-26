@@ -8,6 +8,7 @@ const projectRoutes = require('./routes/project');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const taskRoutes = require('./routes/task');
+const cookieParser = require('cookie-parser');
 dotenv.config();
 
 connectDB();
@@ -15,6 +16,7 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(
 	expressSession({
 		secret: 'this secret is secret',
@@ -26,10 +28,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(authRoutes);
-app.use(projectRoutes);
-app.use(taskRoutes);
-app.use(userRoutes);
+app.use('/api', authRoutes);
+app.use('/api', projectRoutes);
+app.use('/api', taskRoutes);
+app.use('/api', userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -4,13 +4,23 @@ const Project = require('../models/Project');
 exports.createProject = asyncHandler(async (req, res, next) => {
 	const { title, description } = req.body;
 
-	const project = await Project.create({ title, description });
+	const project = await Project.create({ title, description, owner: req.user._id });
+
+	req.user.projects.push(project);
+
+	await req.user.save();
 
 	res.status(201).json(project);
 });
 
 exports.getProjects = asyncHandler(async (req, res, next) => {
 	const projects = await Project.find({});
+
+	res.status(201).json(projects);
+});
+
+exports.getMyProjects = asyncHandler(async (req, res, next) => {
+	const projects = await Project.find({ owner: req.user });
 
 	res.status(201).json(projects);
 });
