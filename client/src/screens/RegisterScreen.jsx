@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { FormControl, FormLabel, Button, Form, FormGroup } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import Message from '../components/Message';
-import { useDispatch } from 'react-redux';
+import Loader from '../components/Loader';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../actions/auth';
 
@@ -14,13 +15,15 @@ const RegisterScreen = ({ history }) => {
 	const [message, setMessage] = useState('');
 
 	const dispatch = useDispatch();
+	const authData = useSelector(state => state.authData);
+	const { loading, error } = authData;
 	const navigate = useNavigate();
 
 	const onSubmitHandler = e => {
 		e.preventDefault();
 
 		if (password !== confirmPassword) {
-			setMessage("Passwords don't match!");
+			setMessage("Passwords don't match!!!");
 		} else {
 			dispatch(register({ username, email, password }));
 			navigate('/login');
@@ -30,8 +33,10 @@ const RegisterScreen = ({ history }) => {
 	return (
 		<>
 			<FormContainer className="border rounded border-1">
+				{error && <Message variant="danger">{error}</Message>}
+				{loading && <Loader variant="danger">{loading}</Loader>}
+				{message && <Message variant="danger">{message}</Message>}
 				<Form onSubmit={onSubmitHandler} className="mt-5">
-					{message && <Message variant="danger">{message}</Message>}
 					<FormGroup>
 						<FormLabel>Username</FormLabel>
 						<FormControl

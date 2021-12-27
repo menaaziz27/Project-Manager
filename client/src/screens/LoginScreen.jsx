@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { FormControl, FormLabel, Button, Form, FormGroup } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/auth';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
 
 const LoginScreen = () => {
 	const [email, setEmail] = useState('');
@@ -11,17 +13,24 @@ const LoginScreen = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const authData = useSelector(state => state.authData);
+	const { loading, error } = authData;
+
 	const onSubmitHandler = e => {
 		e.preventDefault();
 
 		if (email && password) {
 			dispatch(login({ email, password }));
+		}
+		if (!error) {
 			navigate('/');
 		}
 	};
 
 	return (
 		<FormContainer className="border rounded border-1">
+			{error && <Message variant="danger">{error}</Message>}
+			{loading && <Loader variant="danger">{loading}</Loader>}
 			<Form onSubmit={onSubmitHandler} className="mt-5">
 				<FormGroup>
 					<FormLabel>Email</FormLabel>

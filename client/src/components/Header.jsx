@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Container, NavDropdown, Nav, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { LOGOUT } from '../constants/actionTypes';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../actions/auth';
+import decode from 'jwt-decode';
+
 const Header = () => {
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('userInfo'))?.user);
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const token = user?.token;
+		if (token) {
+			const decodedToken = decode(token);
+			if (decodedToken.exp * 1000 < new Date().getTime()) {
+				dispatch(logout());
+				navigate('/login');
+			}
+		} else {
+			navigate('/login');
+		}
+
+		setUser(JSON.parse(localStorage.getItem('userInfo')));
+	}, [dispatch]);
+
 	return (
 		<>
 			<Navbar bg="light" expand="lg">

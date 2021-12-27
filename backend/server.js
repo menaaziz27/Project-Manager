@@ -25,16 +25,16 @@ app.use(
 	})
 );
 
-app.use(
-	expressSession({
-		secret: 'this secret is secret',
-		resave: true,
-		saveUninitialized: true,
-	})
-);
+// app.use(
+// 	expressSession({
+// 		secret: 'this secret is secret',
+// 		resave: true,
+// 		saveUninitialized: true,
+// 	})
+// );
 
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 app.use('/api', authRoutes);
 app.use('/api', projectRoutes);

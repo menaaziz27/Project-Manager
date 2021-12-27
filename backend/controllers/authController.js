@@ -24,7 +24,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 		const { _id, email } = req.user;
 		const token = signToken(_id);
 		res.cookie('access_token', token, { httpOnly: true, sameSite: true });
-		res.status(200).json({ user: { email, _id } });
+		res.status(200).json({ user: { email, _id, token } });
 	}
 });
 

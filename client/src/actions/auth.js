@@ -1,23 +1,14 @@
-import {
-	LOGOUT,
-	USER_LOGIN_REQUEST,
-	USER_LOGIN_SUCCESS,
-	USER_REGISTER_FAIL,
-	USER_REGISTER_REQUEST,
-	USER_REGISTER_SUCCESS,
-} from '../constants/actionTypes';
+import { AUTH_FAIL, AUTH_REQUEST, AUTH_SUCCESS, LOGOUT } from '../constants/actionTypes';
 import * as api from '../api';
 
 export const register = formData => async dispatch => {
 	try {
-		dispatch({ type: USER_REGISTER_REQUEST });
-		console.log('here');
-		const { data } = await api.register(formData);
-
-		dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+		dispatch({ type: AUTH_REQUEST });
+		await api.register(formData);
+		dispatch({ type: AUTH_SUCCESS });
 	} catch (e) {
 		dispatch({
-			type: USER_REGISTER_FAIL,
+			type: AUTH_FAIL,
 			payload: e.response && e.response.data.message ? e.response.data.message : e.message,
 		});
 	}
@@ -25,17 +16,15 @@ export const register = formData => async dispatch => {
 
 export const login = formData => async dispatch => {
 	try {
-		dispatch({ type: USER_LOGIN_REQUEST });
+		dispatch({ type: AUTH_REQUEST });
 		const { data } = await api.login(formData);
 
-		dispatch({ type: USER_LOGIN_SUCCESS, payload: data.user });
+		dispatch({ type: AUTH_SUCCESS, payload: data });
 
-		console.log(data);
-
-		localStorage.setItem('userInfo', JSON.stringify(data.user));
+		localStorage.setItem('userInfo', JSON.stringify(data));
 	} catch (e) {
 		dispatch({
-			type: USER_REGISTER_FAIL,
+			type: AUTH_FAIL,
 			payload: e.response && e.response.data.message ? e.response.data.message : e.message,
 		});
 	}
