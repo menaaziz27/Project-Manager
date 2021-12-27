@@ -9,6 +9,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const taskRoutes = require('./routes/task');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 dotenv.config();
 
 connectDB();
@@ -17,6 +18,13 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+	cors({
+		credentials: true,
+		origin: 'http://localhost:3000',
+	})
+);
+
 app.use(
 	expressSession({
 		secret: 'this secret is secret',

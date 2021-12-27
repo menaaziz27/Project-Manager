@@ -1,7 +1,11 @@
 import React from 'react';
-import { Navbar, Container, NavDropdown, Nav } from 'react-bootstrap';
+import { Navbar, Container, NavDropdown, Nav, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { LOGOUT } from '../constants/actionTypes';
+import { useDispatch } from 'react-redux';
+import { logout } from '../actions/auth';
 const Header = () => {
+	const dispatch = useDispatch();
 	return (
 		<>
 			<Navbar bg="light" expand="lg">
@@ -28,6 +32,9 @@ const Header = () => {
 							<LinkContainer to="/login">
 								<Nav.Link>Login</Nav.Link>
 							</LinkContainer>
+							<Button type="button" className="btn" onClick={() => dispatch(logout())}>
+								logout
+							</Button>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
