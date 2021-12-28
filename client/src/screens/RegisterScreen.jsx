@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../actions/auth';
 
-const RegisterScreen = ({ history }) => {
+const RegisterScreen = () => {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -33,10 +33,10 @@ const RegisterScreen = ({ history }) => {
 	return (
 		<>
 			<FormContainer className="border rounded border-1">
-				{error && <Message variant="danger">{error}</Message>}
-				{loading && <Loader variant="danger">{loading}</Loader>}
-				{message && <Message variant="danger">{message}</Message>}
 				<Form onSubmit={onSubmitHandler} className="mt-5">
+					{error && <Message variant="danger">{error}</Message>}
+					{loading && <Loader variant="danger">{loading}</Loader>}
+					{message && <Message variant="danger">{message}</Message>}
 					<FormGroup>
 						<FormLabel>Username</FormLabel>
 						<FormControl

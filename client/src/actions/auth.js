@@ -14,7 +14,7 @@ export const register = formData => async dispatch => {
 	}
 };
 
-export const login = formData => async dispatch => {
+export const login = (formData, navigate) => async dispatch => {
 	try {
 		dispatch({ type: AUTH_REQUEST });
 		const { data } = await api.login(formData);
@@ -22,6 +22,8 @@ export const login = formData => async dispatch => {
 		dispatch({ type: AUTH_SUCCESS, payload: data });
 
 		localStorage.setItem('userInfo', JSON.stringify(data));
+
+		navigate('/');
 	} catch (e) {
 		dispatch({
 			type: AUTH_FAIL,

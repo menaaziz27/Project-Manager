@@ -12,6 +12,11 @@ const Header = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const logoutHandler = () => {
+		dispatch(logout());
+		navigate('/login');
+	};
+
 	useEffect(() => {
 		const token = user?.token;
 		if (token) {
@@ -53,7 +58,7 @@ const Header = () => {
 							<LinkContainer to="/login">
 								<Nav.Link>Login</Nav.Link>
 							</LinkContainer>
-							<Button type="button" className="btn" onClick={() => dispatch(logout())}>
+							<Button type="button" className="btn" onClick={logoutHandler}>
 								logout
 							</Button>
 						</Nav>

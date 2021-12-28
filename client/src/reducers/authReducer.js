@@ -5,7 +5,7 @@ export const auth = (state = {}, action) => {
 		case AUTH_REQUEST:
 			return { loading: true };
 		case AUTH_SUCCESS:
-			return { loading: false, user: action?.payload.user };
+			return { loading: false, user: action?.payload?.user };
 		case AUTH_FAIL:
 			return { loading: false, error: action.payload };
 		case LOGOUT:

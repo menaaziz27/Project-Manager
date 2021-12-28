@@ -20,18 +20,15 @@ const LoginScreen = () => {
 		e.preventDefault();
 
 		if (email && password) {
-			dispatch(login({ email, password }));
-		}
-		if (!error) {
-			navigate('/');
+			dispatch(login({ email, password }, navigate));
 		}
 	};
 
 	return (
 		<FormContainer className="border rounded border-1">
-			{error && <Message variant="danger">{error}</Message>}
-			{loading && <Loader variant="danger">{loading}</Loader>}
 			<Form onSubmit={onSubmitHandler} className="mt-5">
+				{error && <Message variant="danger">{error}</Message>}
+				{loading && <Loader variant="danger">{loading}</Loader>}
 				<FormGroup>
 					<FormLabel>Email</FormLabel>
 					<FormControl
