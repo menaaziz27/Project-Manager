@@ -3,6 +3,14 @@ const asyncHandler = require('express-async-handler');
 const Project = require('../models/Project');
 const { Task } = require('../models/Task');
 
+exports.getTasks = asyncHandler(async (req, res, next) => {
+	const { projectId } = req.params;
+
+	const tasks = await Task.find({ project: projectId });
+
+	res.status(200).json(tasks);
+});
+
 exports.createTask = asyncHandler(async (req, res, next) => {
 	const { content } = req.body;
 	const { projectId } = req.params;
@@ -14,6 +22,7 @@ exports.createTask = asyncHandler(async (req, res, next) => {
 	}
 	let task = await new Task({ content });
 	task.content = content;
+	task.project = project._id;
 	project.tasks.push(task);
 	await project.save();
 	await task.save();

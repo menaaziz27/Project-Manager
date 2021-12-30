@@ -23,7 +23,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 	if (req.isAuthenticated()) {
 		const { _id, email } = req.user;
 		const token = signToken(_id);
-		res.cookie('access_token', token, { httpOnly: true, sameSite: true });
+		res.cookie('access_token', token, { httpOnly: true, sameSite: true, maxAge: new Date().getTime() + 31536000000 });
 		res.status(200).json({ user: { email, _id, token } });
 	}
 });

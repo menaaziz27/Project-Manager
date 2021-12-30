@@ -26,7 +26,7 @@ exports.getMyProjects = asyncHandler(async (req, res, next) => {
 });
 
 exports.getProject = asyncHandler(async (req, res, next) => {
-	const project = await Project.findById(req.params.id);
+	const project = await Project.findById(req.params.id).populate('tasks');
 
 	if (!project) {
 		res.status(401);

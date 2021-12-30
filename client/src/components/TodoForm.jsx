@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 
-const TodoForm = () => {
+const TodoForm = ({ onCreateTodo }) => {
+	const [content, setContent] = useState('');
 	return (
 		<Card>
 			<Card.Body>
 				<Form.Group className="mb-3">
 					<Form.Label>New Todo</Form.Label>
-					<Form.Control as="textarea" rows={3}></Form.Control>
+					<Form.Control as="textarea" rows={3} onChange={e => setContent(e.target.value)}></Form.Control>
 				</Form.Group>
-				<Button variant="primary">Add Todo</Button>
+				<Button variant="primary" onClick={() => onCreateTodo(content)}>
+					Add Todo
+				</Button>
 			</Card.Body>
 		</Card>
 	);

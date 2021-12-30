@@ -1,35 +1,43 @@
-import React from 'react';
-import { Col, Row } from 'react-bootstrap';
-import TodoForm from '../components/TodoForm';
-import TodoItem from '../components/TodoItem';
+import React, { useState, useEffect } from 'react';
+import { Container, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import * as api from '../api';
+import { createTaskAction, getTasks } from '../actions/tasks';
+import SideMenu from '../components/SideMenu';
+import Board from '../components/Board.jsx';
 
 const ProjectScreen = () => {
-	return (
-		<Row className="container-fluid" style={{ 'minHeight': 'calc(100vh - 72px' }}>
-			<Col sm={2} className="border rounded border-1">
-				side bar
-			</Col>
+	const [project, setProject] = useState(null);
+	const { id } = useParams();
+	const dispatch = useDispatch();
 
-			<Col sm={10} style={{ 'minHeight': '100%' }}>
-				<Row className="h-100">
-					<Col sm={4} className="border rounded border-1" style={{ 'overFlow': 'scroll', 'height': '100%' }}>
-						<h4>Todos</h4>
-						<TodoForm />
-						<TodoItem />
-						<TodoItem />
-						<TodoItem />
-						<TodoItem />
-						{/* map throw all todos and render todoitem for each loop */}
-					</Col>
-					<Col sm={4} className="border rounded border-1" style={{ 'overFlow': 'scroll', 'height': '100%' }}>
-						<h4>In progress</h4>
-					</Col>
-					<Col sm={4} className="border rounded border-1" style={{ 'overFlow': 'scroll', 'height': '100%' }}>
-						<h4>Done</h4>
-					</Col>
-				</Row>
-			</Col>
-		</Row>
+	useEffect(() => {
+		const getProjectWithTodos = async () => {
+			const { data } = await api.getProjectWithTodos(id);
+			console.log(data);
+			setProject(data);
+		};
+		getProjectWithTodos();
+	}, []);
+
+	// useEffect(() => {
+	// 	if (project) {
+	// 		dispatch(getTasks(project._id));
+	// 	}
+	// }, [project, dispatch]);
+
+	const onCreateTodo = content => {
+		// create task here
+		dispatch(createTaskAction(id, { content }));
+	};
+	return (
+		<Container fluid>
+			<Row>
+				{project && <SideMenu title={project?.title} description={project?.description} />}
+				<Board project={project} onCreateTodo={onCreateTodo} />
+			</Row>
+		</Container>
 	);
 };
 

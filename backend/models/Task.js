@@ -10,6 +10,10 @@ const taskSchema = new Schema(
 			enum: [STATUS.TODO, STATUS.IN_PROGRESS, STATUS.DONE],
 			default: STATUS.TODO,
 		},
+		project: {
+			type: mongoose.Types.ObjectId,
+			ref: 'Project',
+		},
 	},
 	{
 		timestamps: true,

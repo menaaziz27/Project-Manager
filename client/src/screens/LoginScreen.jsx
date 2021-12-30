@@ -14,7 +14,11 @@ const LoginScreen = () => {
 	const navigate = useNavigate();
 
 	const authData = useSelector(state => state.authData);
-	const { loading, error } = authData;
+	let loading, error;
+	if (authData) {
+		loading = authData.loading;
+		error = authData.error;
+	}
 
 	const onSubmitHandler = e => {
 		e.preventDefault();
