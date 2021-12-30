@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const { taskSchema } = require('./Task');
 const Schema = mongoose.Schema;
 
 const projectSchema = new Schema(
 	{
 		title: String,
 		description: String,
-		tasks: [taskSchema],
+		tasks: [{ type: mongoose.Types.ObjectId, ref: 'Task' }],
 		owner: {
 			type: mongoose.Types.ObjectId,
 			reef: 'User',

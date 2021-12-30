@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 
 const Project = require('../models/Project');
-const { Task } = require('../models/Task');
+const Task = require('../models/Task');
 
 exports.getTasks = asyncHandler(async (req, res, next) => {
 	const { projectId } = req.params;
@@ -23,9 +23,9 @@ exports.createTask = asyncHandler(async (req, res, next) => {
 	let task = await new Task({ content });
 	task.content = content;
 	task.project = project._id;
+	task = await task.save();
 	project.tasks.push(task);
 	await project.save();
-	await task.save();
 
 	res.status(200).json({ task, project });
 });
@@ -54,12 +54,14 @@ exports.updateTask = asyncHandler(async (req, res, next) => {
 
 exports.deleteTask = asyncHandler(async (req, res, next) => {
 	const { taskId } = req.params;
-	let deletedTask = await Task.findOneAndRemove(taskId, { new: true });
-	console.log(deletedTask);
-	if (!deletedTask) {
+	let task = await Task.findOne({ _id: taskId });
+	// console.log(deletedTask);
+	if (!task) {
 		res.status(401);
 		throw new Error('Cannot delete a task that not exist.');
 	}
+
+	await task.remove();
 
 	res.status(200).json({ message: 'deleted!' });
 });

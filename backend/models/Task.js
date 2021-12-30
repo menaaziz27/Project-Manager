@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { STATUS } = require('../utils/constants');
 const Schema = mongoose.Schema;
+const Project = require('./Project');
 
 const taskSchema = new Schema(
 	{
@@ -20,9 +21,13 @@ const taskSchema = new Schema(
 	}
 );
 
+taskSchema.pre('remove', async function (next) {
+	const task = this;
+
+	await Project.findByIdAndUpdate({ _id: task.project }, { $pull: { tasks: task._id } });
+	next();
+});
+
 const Task = mongoose.model('Task', taskSchema);
 
-// export default Task;
-// export { taskSchema };
-// exports.taskSchema;
-module.exports = { Task, taskSchema };
+module.exports = Task;
