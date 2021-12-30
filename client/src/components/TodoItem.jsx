@@ -1,13 +1,24 @@
-import React from 'react';
-import { Card, Col, ListGroup, Nav, Row } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import ModalComponent from './ModalComponent';
+import * as api from '../api';
 
-const TodoItem = ({ task }) => {
+const TodoItem = ({ task, onTaskDelete, setTasks }) => {
+	const [show, setShow] = useState(false);
+
+	const handleClose = content => {
+		onTaskUpdate(content);
+		setShow(false);
+	};
+	const handleShow = () => setShow(true);
+
 	const { id: projectId } = useParams();
-	// const [task, setTask] = useState();
 
+	const onTaskUpdate = async content => {
+		const { data } = await api.updateTask(task._id, { content });
+		setTasks(prevState => prevState.map(task => (task._id !== data._id ? task : data)));
+	};
 	return (
 		<Card className="mt-3 p-2">
 			<ListGroup variant="flush">
@@ -15,29 +26,18 @@ const TodoItem = ({ task }) => {
 				<ListGroup.Item className="removePadding center">
 					<Row>
 						<Col xs={4} className=" d-flex justify-content-center">
-							<LinkContainer to="/cart">
-								<Nav.Link>
-									<i className="fas fa-tasks"></i>
-								</Nav.Link>
-							</LinkContainer>
+							<i className="fas fa-tasks p-1"></i>
 						</Col>
 						<Col xs={4} className=" d-flex justify-content-center">
-							<LinkContainer to="/cart">
-								<Nav.Link>
-									<i className="fas fa-edit"></i>
-								</Nav.Link>
-							</LinkContainer>
+							<i className="fas fa-edit p-1" onClick={handleShow}></i>
 						</Col>
 						<Col xs={4} className=" d-flex justify-content-center">
-							<LinkContainer to="/cart">
-								<Nav.Link>
-									<i className="fas fa-trash-alt"></i>
-								</Nav.Link>
-							</LinkContainer>
+							<i className="fas fa-trash-alt p-1" onClick={() => onTaskDelete(task._id)}></i>
 						</Col>
 					</Row>
 				</ListGroup.Item>
 			</ListGroup>
+			<ModalComponent handleClose={handleClose} show={show} task={task} centered={true} />
 		</Card>
 	);
 };

@@ -21,21 +21,11 @@ const ProjectScreen = () => {
 		getProjectWithTodos();
 	}, []);
 
-	// useEffect(() => {
-	// 	if (project) {
-	// 		dispatch(getTasks(project._id));
-	// 	}
-	// }, [project, dispatch]);
-
-	const onCreateTodo = content => {
-		// create task here
-		dispatch(createTaskAction(id, { content }));
-	};
 	return (
 		<Container fluid>
 			<Row>
 				{project && <SideMenu title={project?.title} description={project?.description} />}
-				<Board project={project} onCreateTodo={onCreateTodo} />
+				<Board project={project} />
 			</Row>
 		</Container>
 	);

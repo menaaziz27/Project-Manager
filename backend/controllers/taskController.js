@@ -31,17 +31,35 @@ exports.createTask = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateTask = asyncHandler(async (req, res, next) => {
-	const { projectId, taskId } = req.params;
-	let project = await Project.findOneAndUpdate(
-		{ _id: projectId, 'tasks._id': taskId },
-		{
-			$set: { 'tasks[$].content': req.body.content, 'tasks[$].status': req.body.status },
-		}
-	);
-	if (!project) {
+	const { taskId } = req.params;
+	let updatedTask = await Task.findOneAndUpdate({ _id: taskId }, { content: req.body.content }, { new: true });
+
+	res.status(200).json(updatedTask);
+});
+// exports.updateTask = asyncHandler(async (req, res, next) => {
+// 	const { projectId, taskId } = req.params;
+// 	let project = await Project.findOneAndUpdate(
+// 		{ _id: projectId, 'tasks._id': taskId },
+// 		{
+// 			$set: { 'tasks[$].content': req.body.content, 'tasks[$].status': req.body.status },
+// 		}
+// 	);
+// 	if (!project) {
+// 		res.status(401);
+// 		throw new Error('Cannot add a task to un existing project.');
+// 	}
+
+// 	res.status(200).json({ project });
+// });
+
+exports.deleteTask = asyncHandler(async (req, res, next) => {
+	const { taskId } = req.params;
+	let deletedTask = await Task.findOneAndRemove(taskId, { new: true });
+	console.log(deletedTask);
+	if (!deletedTask) {
 		res.status(401);
-		throw new Error('Cannot add a task to un existing project.');
+		throw new Error('Cannot delete a task that not exist.');
 	}
 
-	res.status(200).json({ project });
+	res.status(200).json({ message: 'deleted!' });
 });
