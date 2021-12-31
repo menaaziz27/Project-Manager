@@ -10,7 +10,7 @@ const ModalComponent = ({ task, show, setShow, handleSave, children }) => {
 		<>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
-					<Modal.Title>Task Info</Modal.Title>
+					<Modal.Title>Info</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>{children}</Modal.Body>
 				<Modal.Footer>

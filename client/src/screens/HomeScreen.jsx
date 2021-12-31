@@ -4,32 +4,33 @@ import { useNavigate } from 'react-router-dom';
 import * as api from '../api';
 import ProjectItem from '../components/ProjectItem';
 import ModalComponent from '../components/Modal/ModalComponent';
+import { useDispatch } from 'react-redux';
+import { createProject, fetchProjects } from '../actions/project';
+import ProjectList from '../components/ProjectList/ProjectList';
 
 const HomeScreen = () => {
-	const [projects, setProjects] = useState([]);
 	const [show, setShow] = useState(false);
+	const [search, setSearch] = useState('');
 	const [project, setProject] = useState({ title: '', description: '' });
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const user = JSON.parse(localStorage.getItem('userInfo'));
 
 	const handleSave = () => {
-		// create project from api
-		// dispatch an action
-		// update store
+		if (project.title.trim() && project.description.trim()) {
+			dispatch(createProject(project));
+		}
+		setProject({ title: '', description: '' });
+		handleShow();
 	};
 
 	useEffect(() => {
-		const getProjects = async () => {
-			const { data } = await api.getProjects();
-			console.log(data);
-			setProjects(data);
-		};
 		if (user) {
-			getProjects();
+			dispatch(fetchProjects());
 		} else {
 			navigate('/login');
 		}
-	}, []);
+	}, [dispatch]);
 
 	const handleShow = () => {
 		setShow(!show);
@@ -41,24 +42,14 @@ const HomeScreen = () => {
 					<Row className="p-3">
 						<Button onClick={handleShow}>Create Project</Button>
 					</Row>
-					{/* <Row className="p-3">sidebar</Row> */}
+					<Row className="p-3">
+						<Col>
+							search for projects
+							<input type="text" value={search} onChange={e => setSearch(e.target.value)} />
+						</Col>
+					</Row>
 				</Col>
-				<Col sm={10}>
-					{projects.length === 0 ? (
-						<h3>Go create some projects!</h3>
-					) : (
-						<Row className="p-3 border border-1">
-							{projects.map(project => (
-								<ProjectItem
-									title={project.title}
-									description={project.description}
-									_id={project._id}
-									key={project._id}
-								/>
-							))}
-						</Row>
-					)}
-				</Col>
+				<ProjectList />
 				<ModalComponent handleSave={handleSave} show={show} setShow={setShow} centered={true}>
 					<form>
 						<Form.Group>

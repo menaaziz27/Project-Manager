@@ -41,7 +41,6 @@ const Board = () => {
 		<>
 			<Col sm={10}>
 				<Row className="h-100">
-					{/* @Todo */}
 					<Col sm={4} className="border rounded border-1 p-3">
 						<h4>Todos</h4>
 						<TodoForm onTaskCreate={onTaskCreate} />
@@ -57,18 +56,7 @@ const Board = () => {
 										key={task._id}
 									/>
 								))}
-						{/* {tasks &&
-							tasks.map(task => (
-								<TodoItem
-									task={task}
-									setTasks={setTasks}
-									onTaskUpdate={onTaskUpdate}
-									onTaskDelete={onTaskDelete}
-									key={task._id}
-								/>
-							))} */}
 					</Col>
-					{/* in progress */}
 					<Col sm={4} className="border rounded border-1 p-3">
 						<h4>In progress</h4>
 						{tasks &&
@@ -84,7 +72,6 @@ const Board = () => {
 									/>
 								))}
 					</Col>
-					{/* Done */}
 					<Col sm={4} className="border rounded border-1 p-3">
 						<h4>Done</h4>
 						{tasks &&

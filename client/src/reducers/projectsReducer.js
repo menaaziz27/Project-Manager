@@ -1,7 +1,9 @@
-import { CREATE_PROJECT, DELETE_PROJECT, UPDATE_PROJECT } from '../constants/actionTypes';
+import { CREATE_PROJECT, DELETE_PROJECT, UPDATE_PROJECT, FETCH_PROJECTS } from '../constants/actionTypes';
 
-export const projectReudcer = (projects = {}, action) => {
+export const projectReudcer = (projects = [], action) => {
 	switch (action.type) {
+		case FETCH_PROJECTS:
+			return action?.payload;
 		case CREATE_PROJECT:
 			return [...projects, action?.payload];
 		case UPDATE_PROJECT:

@@ -23,7 +23,7 @@ const ProjectScreen = () => {
 	return (
 		<Container fluid>
 			<Row>
-				{project && <SideMenu project={project} />}
+				{project && <SideMenu project={project} setProject={setProject} />}
 				<Board />
 			</Row>
 		</Container>

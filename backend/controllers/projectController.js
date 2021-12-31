@@ -43,7 +43,7 @@ exports.editProject = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteProject = asyncHandler(async (req, res, next) => {
-	const deletedProject = await Project.findByIdAndDelete(req.params.id, { new: true });
+	const deletedProject = await Project.findByIdAndRemove(req.params.id, { new: true });
 
 	res.status(200).json({ message: 'deleted', project: deletedProject });
 });
