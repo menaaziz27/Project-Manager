@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FormControl, FormLabel, Button, Form, FormGroup } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
+import Message from '../components/Message/Message';
+import Loader from '../components/Loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../actions/auth';

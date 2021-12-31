@@ -4,8 +4,8 @@ import FormContainer from '../components/FormContainer';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/auth';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
+import Message from '../components/Message/Message';
+import Loader from '../components/Loader/Loader';
 
 const LoginScreen = () => {
 	const [email, setEmail] = useState('');

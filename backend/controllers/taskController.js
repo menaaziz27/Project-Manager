@@ -32,7 +32,7 @@ exports.createTask = asyncHandler(async (req, res, next) => {
 
 exports.updateTask = asyncHandler(async (req, res, next) => {
 	const { taskId } = req.params;
-	let updatedTask = await Task.findOneAndUpdate({ _id: taskId }, { content: req.body.content }, { new: true });
+	let updatedTask = await Task.findOneAndUpdate({ _id: taskId }, req.body, { new: true });
 
 	res.status(200).json(updatedTask);
 });

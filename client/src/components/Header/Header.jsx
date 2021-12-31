@@ -3,7 +3,7 @@ import { Navbar, Container, NavDropdown, Nav, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../actions/auth';
+import { logout } from '../../actions/auth';
 import decode from 'jwt-decode';
 
 const Header = () => {
