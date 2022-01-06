@@ -14,7 +14,13 @@ exports.createProject = asyncHandler(async (req, res, next) => {
 });
 
 exports.getProjects = asyncHandler(async (req, res, next) => {
-	const projects = await Project.find({});
+	const query = req?.query;
+	let projects;
+	if (!query) {
+		projects = await Project.find({});
+	} else {
+		console.log(query);
+	}
 
 	res.status(201).json(projects);
 });

@@ -7,6 +7,7 @@ export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const UPDATE_PROJECT = 'UPDATE_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const FETCH_PROJECTS = 'FETCH_PROJECTS';
+export const SEARCH_PROJECT = 'SEARCH_PROJECT';
 
 export const FETCH_TASKS = 'FETCH_TASKS';
 export const CREATE_TASK = 'CREATE_TASK';

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Col, Form, ListGroup, Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 import ModalComponent from '../../Modal/ModalComponent';
-import * as api from '../../../api';
 
 const TodoItem = ({ task, onTaskDelete, onTaskUpdate }) => {
 	const [show, setShow] = useState(false);

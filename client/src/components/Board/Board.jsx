@@ -4,7 +4,7 @@ import TodoForm from './TodoForm/TodoForm';
 import TodoItem from './TodoItem/TodoItem';
 import * as api from '../../api';
 import { useParams } from 'react-router-dom';
-
+import { notify } from '../../helper/toast';
 const Board = () => {
 	const [tasks, setTasks] = useState([]);
 	const { id: projectId } = useParams();
@@ -17,11 +17,13 @@ const Board = () => {
 			};
 			getTasks();
 		}
-	}, []);
+	}, [projectId]);
 
 	const onTaskDelete = async _id => {
 		await api.deleteTask(_id);
 		setTasks(tasks.filter(task => task._id !== _id));
+
+		notify('Task is deleted!');
 	};
 
 	const onTaskCreate = async content => {
@@ -29,6 +31,8 @@ const Board = () => {
 			const { data } = await api.createTask(projectId, { content });
 			let newTask = data.task;
 			setTasks(prevState => [...prevState, newTask]);
+
+			notify('Task created successfully!');
 		} catch (e) {
 			console.log(e);
 		}
@@ -39,6 +43,8 @@ const Board = () => {
 		const { data } = await api.updateTask(task._id, { content, status });
 		console.log(data);
 		setTasks(prevState => prevState.map(task => (task._id !== data._id ? task : data)));
+
+		notify('Task updated successfully!');
 	};
 
 	return (

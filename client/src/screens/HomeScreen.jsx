@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import * as api from '../api';
-import ProjectItem from '../components/ProjectItem';
 import ModalComponent from '../components/Modal/ModalComponent';
 import { useDispatch } from 'react-redux';
 import { createProject, fetchProjects } from '../actions/project';
 import ProjectList from '../components/ProjectList/ProjectList';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 const HomeScreen = () => {
 	const [show, setShow] = useState(false);
-	const [search, setSearch] = useState('');
 	const [project, setProject] = useState({ title: '', description: '' });
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -30,7 +28,7 @@ const HomeScreen = () => {
 		} else {
 			navigate('/login');
 		}
-	}, [dispatch]);
+	}, [dispatch, user, navigate]);
 
 	const handleShow = () => {
 		setShow(!show);
@@ -44,8 +42,7 @@ const HomeScreen = () => {
 					</Row>
 					<Row className="p-3">
 						<Col>
-							search for projects
-							<input type="text" value={search} onChange={e => setSearch(e.target.value)} />
+							<SearchBar />
 						</Col>
 					</Row>
 				</Col>
