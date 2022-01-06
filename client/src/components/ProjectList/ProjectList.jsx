@@ -1,11 +1,10 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import ProjectItem from '../ProjectItem';
+import ProjectItem from './ProjectItem/ProjectItem';
 
 const ProjectList = () => {
-	const projects = useSelector(state => state.projects.projects);
-	console.log(projects);
+	const projects = useSelector(state => state.projectsData.projects);
 	return (
 		<Col sm={10}>
 			{projects && projects.length === 0 ? (

@@ -9,6 +9,7 @@ export const logout = () => API.get('/api/auth/logout');
 export const getProjects = () => API.get('/api/projects/me');
 export const createProject = project => API.post('/api/projects', project);
 export const deleteProject = id => API.delete(`/api/projects/${id}`);
+export const updateProject = (projectId, data) => API.put(`/api/projects/${projectId}`, data);
 export const getProjectWithTodos = id => API.get(`/api/projects/${id}`);
 export const searchForProject = term => API.get(`/api/projects?q=${term}`);
 

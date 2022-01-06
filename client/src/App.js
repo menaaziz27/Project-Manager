@@ -7,6 +7,9 @@ import RegisterScreen from './screens/RegisterScreen';
 import ProjectScreen from './screens/ProjectScreen';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 function App() {
 	return (

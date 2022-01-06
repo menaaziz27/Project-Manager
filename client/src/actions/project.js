@@ -1,5 +1,11 @@
 import * as api from '../api';
-import { CREATE_PROJECT, DELETE_PROJECT, FETCH_PROJECTS, SEARCH_PROJECT } from '../constants/actionTypes';
+import {
+	CREATE_PROJECT,
+	DELETE_PROJECT,
+	FETCH_PROJECTS,
+	SEARCH_PROJECT,
+	UPDATE_PROJECT,
+} from '../constants/actionTypes';
 
 export const fetchProjects = () => async dispatch => {
 	try {
@@ -15,6 +21,16 @@ export const createProject = project => async dispatch => {
 		const { data } = await api.createProject(project);
 
 		dispatch({ type: CREATE_PROJECT, payload: data });
+	} catch (e) {
+		console.log(e);
+	}
+};
+
+export const updateProject = (projectId, data) => async dispatch => {
+	try {
+		const { data } = await api.updateProject(projectId);
+
+		dispatch({ type: UPDATE_PROJECT, payload: data });
 	} catch (e) {
 		console.log(e);
 	}
