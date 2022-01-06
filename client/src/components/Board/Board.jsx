@@ -9,6 +9,16 @@ const Board = () => {
 	const [tasks, setTasks] = useState([]);
 	const { id: projectId } = useParams();
 
+	useEffect(() => {
+		if (projectId) {
+			const getTasks = async () => {
+				const { data } = await api.fetchTasks(projectId);
+				setTasks(data);
+			};
+			getTasks();
+		}
+	}, []);
+
 	const onTaskDelete = async _id => {
 		await api.deleteTask(_id);
 		setTasks(tasks.filter(task => task._id !== _id));
@@ -26,16 +36,6 @@ const Board = () => {
 		console.log(data);
 		setTasks(prevState => prevState.map(task => (task._id !== data._id ? task : data)));
 	};
-
-	useEffect(() => {
-		if (projectId) {
-			const getTasks = async () => {
-				const { data } = await api.fetchTasks(projectId);
-				setTasks(data);
-			};
-			getTasks();
-		}
-	}, []);
 
 	return (
 		<>

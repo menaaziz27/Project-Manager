@@ -5,6 +5,6 @@ import { tasksReducer } from './tasksReducer';
 
 export default combineReducers({
 	authData: auth,
-	// tasks: tasksReducer,
 	projects: projectReudcer,
+	// tasks: tasksReducer,
 });
