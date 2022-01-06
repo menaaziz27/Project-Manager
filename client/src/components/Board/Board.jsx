@@ -25,9 +25,13 @@ const Board = () => {
 	};
 
 	const onTaskCreate = async content => {
-		const { data } = await api.createTask(projectId, { content });
-		let newTask = data.task;
-		setTasks(prevState => [...prevState, newTask]);
+		try {
+			const { data } = await api.createTask(projectId, { content });
+			let newTask = data.task;
+			setTasks(prevState => [...prevState, newTask]);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	const onTaskUpdate = async (task, content, status) => {

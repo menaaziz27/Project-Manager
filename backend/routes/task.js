@@ -7,7 +7,7 @@ const { createTask, updateTask, getTasks, deleteTask } = require('../controllers
 // router.route('/api/tasks/:id').post(createTask);
 // tasks
 router.route('/projects/:projectId/tasks').get(getTasks).post(createTask);
-router.route('/projects/:projectId/tasks/:taskId');
+// router.route('/projects/:projectId/tasks/:taskId');
 router.route('/tasks/:taskId').delete(deleteTask).put(updateTask);
 
 module.exports = router;

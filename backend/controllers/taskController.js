@@ -15,19 +15,21 @@ exports.createTask = asyncHandler(async (req, res, next) => {
 	const { content } = req.body;
 	const { projectId } = req.params;
 
-	let project = await Project.findById(projectId);
-	if (!project) {
-		res.status(401);
-		throw new Error('Cannot add a task to un existing project.');
-	}
-	let task = await new Task({ content });
+	let task = new Task();
 	task.content = content;
-	task.project = project._id;
-	task = await task.save();
-	project.tasks.push(task);
-	await project.save();
+	task.project = projectId;
+	task.save().then(async task => {
+		let project = await Project.findById(projectId);
 
-	res.status(200).json({ task, project });
+		if (!project) {
+			res.status(401);
+			throw new Error('Cannot add a task to un existing project.');
+		}
+		project.tasks.push(task);
+		project.save().then(result => {
+			res.status(200).json({ task });
+		});
+	});
 });
 
 exports.updateTask = asyncHandler(async (req, res, next) => {
