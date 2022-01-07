@@ -5,6 +5,7 @@ import ProjectItem from './ProjectItem/ProjectItem';
 
 const ProjectList = () => {
 	const projects = useSelector(state => state.projectsData.projects);
+
 	return (
 		<Col sm={10}>
 			{projects && projects.length === 0 ? (

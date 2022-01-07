@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Col, Form, FormControl, FormGroup, ListGroup, Row } from 'react-bootstrap';
 import Modal from 'react-modal';
+
 const TodoItem = ({ task, onTaskDelete, onTaskUpdate }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [textInput, setTextInput] = useState(task.content || null);
@@ -33,7 +34,6 @@ const TodoItem = ({ task, onTaskDelete, onTaskUpdate }) => {
 					</Row>
 				</ListGroup.Item>
 			</ListGroup>
-
 			<Modal
 				isOpen={isOpen}
 				onRequestClose={toggleModal}
@@ -54,7 +54,6 @@ const TodoItem = ({ task, onTaskDelete, onTaskUpdate }) => {
 							autoFocus
 						></FormControl>
 					</FormGroup>
-
 					<Form.Select onChange={e => setStatus(e.target.value)} value={status}>
 						<option value="TODO">Todo</option>
 						<option value="IN_PROGRESS">In Progress</option>

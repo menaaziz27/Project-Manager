@@ -5,6 +5,7 @@ import TodoItem from './TodoItem/TodoItem';
 import * as api from '../../api';
 import { useParams } from 'react-router-dom';
 import { notify } from '../../helper/toast';
+
 const Board = () => {
 	const [tasks, setTasks] = useState([]);
 	const { id: projectId } = useParams();
@@ -39,67 +40,63 @@ const Board = () => {
 	};
 
 	const onTaskUpdate = async (task, content, status) => {
-		console.log(content, status);
 		const { data } = await api.updateTask(task._id, { content, status });
-		console.log(data);
 		setTasks(prevState => prevState.map(task => (task._id !== data._id ? task : data)));
 
 		notify('Task updated successfully!');
 	};
 
 	return (
-		<>
-			<Col sm={10}>
-				<Row className="h-100">
-					<Col sm={4} className="border rounded border-1 p-3">
-						<h4>Todos</h4>
-						<TodoForm onTaskCreate={onTaskCreate} />
-						{tasks &&
-							tasks
-								.filter(task => task.status === 'TODO')
-								.map(task => (
-									<TodoItem
-										task={task}
-										setTasks={setTasks}
-										onTaskUpdate={onTaskUpdate}
-										onTaskDelete={onTaskDelete}
-										key={task._id}
-									/>
-								))}
-					</Col>
-					<Col sm={4} className="border rounded border-1 p-3">
-						<h4>In progress</h4>
-						{tasks &&
-							tasks
-								.filter(task => task.status === 'IN_PROGRESS')
-								.map(task => (
-									<TodoItem
-										task={task}
-										setTasks={setTasks}
-										onTaskUpdate={onTaskUpdate}
-										onTaskDelete={onTaskDelete}
-										key={task._id}
-									/>
-								))}
-					</Col>
-					<Col sm={4} className="border rounded border-1 p-3">
-						<h4>Done</h4>
-						{tasks &&
-							tasks
-								.filter(task => task.status === 'DONE')
-								.map(task => (
-									<TodoItem
-										task={task}
-										setTasks={setTasks}
-										onTaskUpdate={onTaskUpdate}
-										onTaskDelete={onTaskDelete}
-										key={task._id}
-									/>
-								))}
-					</Col>
-				</Row>
-			</Col>
-		</>
+		<Col sm={10}>
+			<Row className="h-100">
+				<Col sm={4} className="border rounded border-1 p-3">
+					<h4>Todos</h4>
+					<TodoForm onTaskCreate={onTaskCreate} />
+					{tasks &&
+						tasks
+							.filter(task => task.status === 'TODO')
+							.map(task => (
+								<TodoItem
+									task={task}
+									setTasks={setTasks}
+									onTaskUpdate={onTaskUpdate}
+									onTaskDelete={onTaskDelete}
+									key={task._id}
+								/>
+							))}
+				</Col>
+				<Col sm={4} className="border rounded border-1 p-3">
+					<h4>In progress</h4>
+					{tasks &&
+						tasks
+							.filter(task => task.status === 'IN_PROGRESS')
+							.map(task => (
+								<TodoItem
+									task={task}
+									setTasks={setTasks}
+									onTaskUpdate={onTaskUpdate}
+									onTaskDelete={onTaskDelete}
+									key={task._id}
+								/>
+							))}
+				</Col>
+				<Col sm={4} className="border rounded border-1 p-3">
+					<h4>Done</h4>
+					{tasks &&
+						tasks
+							.filter(task => task.status === 'DONE')
+							.map(task => (
+								<TodoItem
+									task={task}
+									setTasks={setTasks}
+									onTaskUpdate={onTaskUpdate}
+									onTaskDelete={onTaskDelete}
+									key={task._id}
+								/>
+							))}
+				</Col>
+			</Row>
+		</Col>
 	);
 };
 

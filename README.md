@@ -1,10 +1,10 @@
-- [ ] Prevent user from going Home if he is not authenticated
-- [ ] redesign Home and Project page
-- [ ] create todo item form and reducers
+- [x] Prevent user from going Home if he is not authenticated
+- [x] redesign Home and Project page
+- [x] create todo item form and reducers
 - [ ] user logout endpoint is useless
 - [ ] protected routes
-- [ ] deleting tasks bug
+- [x] deleting tasks bug
 - [ ] search for projects on typing
-- [ ] create project
-- [ ] update project
-- [ ] reusable modal ?
+- [x] create project
+- [x] update project
+- [x] reusable modal ?
