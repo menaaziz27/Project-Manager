@@ -26,7 +26,20 @@ exports.getProjects = asyncHandler(async (req, res) => {
 });
 
 exports.getMyProjects = asyncHandler(async (req, res) => {
-	const projects = await Project.find({ owner: req.user });
+	const query = req.query.q
+		? {
+				$or: [
+					{
+						title: { $regex: `${req.query.q}`, $options: 'i' },
+					},
+					{
+						description: { $regex: `${req.query.q}`, $options: 'i' },
+					},
+				],
+				$and: [{ owner: req.user }],
+		  }
+		: {};
+	const projects = await Project.find({ ...query });
 
 	res.status(201).json(projects);
 });

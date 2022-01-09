@@ -29,6 +29,7 @@ function App() {
 			<main>
 				<Routes>
 					<Route exact path="/" element={<HomeScreen />} />
+					<Route exact path="/search" element={<HomeScreen />} />
 					<Route path="/login" element={<LoginScreen />} />
 					<Route path="/register" element={<RegisterScreen />} />
 					<Route path="/projects/:id" element={<ProjectScreen />} />

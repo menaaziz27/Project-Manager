@@ -6,7 +6,7 @@ export const register = data => API.post('/api/auth/register', data);
 export const login = data => API.post('/api/auth/login', data);
 export const logout = () => API.get('/api/auth/logout');
 
-export const getProjects = () => API.get('/api/projects/me');
+export const getProjects = q => API.get(`/api/projects/me?q=${q}`);
 export const createProject = project => API.post('/api/projects', project);
 export const deleteProject = id => API.delete(`/api/projects/${id}`);
 export const updateProject = (projectId, data) => API.put(`/api/projects/${projectId}`, data);

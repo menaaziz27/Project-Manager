@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createProject, fetchProjects } from '../actions/project';
 import ProjectList from '../components/ProjectList/ProjectList';
-import SearchBar from '../components/SearchBar/SearchBar';
 import Modal from 'react-modal';
 
 const HomeScreen = () => {
@@ -12,6 +11,14 @@ const HomeScreen = () => {
 	const [projectForm, setProjectForm] = useState({ title: '', description: '' });
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	// get query parameters
+	const search = window.location.search;
+	const params = new URLSearchParams(search);
+	const keyword = params.get('q');
+
+	useEffect(() => {}, [dispatch]);
+
 	const user = JSON.parse(localStorage.getItem('userInfo'));
 
 	const onCreateProject = () => {
@@ -24,7 +31,11 @@ const HomeScreen = () => {
 
 	useEffect(() => {
 		if (user) {
-			dispatch(fetchProjects());
+			if (params.get('q')) {
+				dispatch(fetchProjects(keyword));
+			} else {
+				dispatch(fetchProjects());
+			}
 		} else {
 			navigate('/login');
 		}
@@ -38,13 +49,8 @@ const HomeScreen = () => {
 		<Container fluid>
 			<Row>
 				<Col sm={2}>
-					<Row className="p-3">
+					<Row className="p-3 d-flex flex-sm-row-reverse">
 						<Button onClick={toggleModal}>Create Project</Button>
-					</Row>
-					<Row className="p-3">
-						<Col>
-							<SearchBar />
-						</Col>
 					</Row>
 				</Col>
 				<ProjectList />

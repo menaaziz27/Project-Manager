@@ -7,9 +7,12 @@ import {
 	UPDATE_PROJECT,
 } from '../constants/actionTypes';
 
-export const fetchProjects = () => async dispatch => {
+export const fetchProjects = q => async dispatch => {
+	if (!q) {
+		q = '';
+	}
 	try {
-		const { data } = await api.getProjects();
+		const { data } = await api.getProjects(q);
 
 		dispatch({ type: FETCH_PROJECTS, payload: data });
 	} catch (e) {
