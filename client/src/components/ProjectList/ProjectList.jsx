@@ -5,13 +5,14 @@ import ProjectItem from './ProjectItem/ProjectItem';
 
 const ProjectList = () => {
 	const projects = useSelector(state => state.projectsData.projects);
+	const term = useSelector(state => state.projectsData.term);
 
 	return (
 		<Col sm={10}>
 			{projects && projects.length === 0 ? (
 				<h3>Go create some projects!</h3>
 			) : (
-				<Row className="p-3 border border-1">
+				<Row className=" border border-1">
 					{projects &&
 						projects?.map(project => (
 							<ProjectItem

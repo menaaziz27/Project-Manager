@@ -25,10 +25,10 @@ const TodoItem = ({ task, onTaskDelete, onTaskUpdate }) => {
 				<ListGroup.Item>{task.content}</ListGroup.Item>
 				<ListGroup.Item className="removePadding center">
 					<Row>
-						<Col xs={6} className=" d-flex justify-content-center">
+						<Col xs={6} className="d-flex justify-content-center">
 							<i className="fas fa-edit p-1" onClick={toggleModal}></i>
 						</Col>
-						<Col xs={6} className=" d-flex justify-content-center">
+						<Col xs={6} className="d-flex justify-content-center">
 							<i className="fas fa-trash-alt p-1" onClick={() => onTaskDelete(task._id)}></i>
 						</Col>
 					</Row>

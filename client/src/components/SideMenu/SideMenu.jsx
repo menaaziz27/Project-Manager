@@ -9,7 +9,10 @@ import { notify } from '../../helper/toast';
 
 const SideMenu = ({ project, setProject }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [projectForm, setProjectForm] = useState({ title: '', description: '' });
+	const [projectForm, setProjectForm] = useState({
+		title: project.title || '',
+		description: project.description || '',
+	});
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -28,17 +31,18 @@ const SideMenu = ({ project, setProject }) => {
 	};
 
 	const toggleModal = () => {
+		setProjectForm({ title: project.title, description: project.description });
 		setIsOpen(!isOpen);
 	};
 
 	return (
-		<Col sm={2} className="border rounded border-1">
-			<Row className="p-3">
+		<Col md={2} className="border rounded border-1">
+			<Row className="p-3 d-flex justify-content-sm-between">
 				<Col>
-					<Button onClick={onDelete}>X</Button>
+					<i className="fas fa-trash-alt p-1" onClick={onDelete}></i>
 				</Col>
 				<Col>
-					<Button onClick={toggleModal}>update</Button>
+					<i className="fas fa-edit p-1" onClick={toggleModal}></i>
 				</Col>
 			</Row>
 			<Row className="p-3">
@@ -77,7 +81,7 @@ const SideMenu = ({ project, setProject }) => {
 							className="w-100 p-1"
 						></Form.Control>
 					</Form.Group>
-					<Button type="submit" className="w-100 mt-3" onClick={onUpdate}>
+					<Button type="submit" className="w-100 mt-3" onClick={onUpdate} disabled={!projectForm.title.trim()}>
 						Create
 					</Button>
 				</form>

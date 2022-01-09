@@ -47,7 +47,7 @@ const Board = () => {
 	};
 
 	return (
-		<Col sm={10}>
+		<Col md={10}>
 			<Row className="h-100">
 				<Col sm={4} className="border rounded border-1 p-3">
 					<h4>Todos</h4>

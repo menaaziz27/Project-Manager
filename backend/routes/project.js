@@ -10,6 +10,7 @@ const {
 	editProject,
 	deleteProject,
 	getMyProjects,
+	searchProjects,
 } = require('../controllers/projectController');
 
 router
@@ -25,4 +26,5 @@ router
 	.put(passport.authenticate('jwt', { session: false }), editProject)
 	.delete(passport.authenticate('jwt', { session: false }), deleteProject);
 
+router.route('/search').get(searchProjects);
 module.exports = router;

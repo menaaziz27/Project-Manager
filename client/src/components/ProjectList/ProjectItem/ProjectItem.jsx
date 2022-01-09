@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 
 const ProjectItem = ({ title, description, _id }) => {
 	return (
-		<Col as={Link} to={`/projects/${_id}`} sm={6} className="p-2 border-right border-bottom">
-			<h4>{title}</h4>
+		<Col sm={6} className="p-2 border-bottom border-end">
+			<Link to={`/projects/${_id}`} className="text-decoration-none">
+				<h4>{title}</h4>
+			</Link>
 			{description}
 		</Col>
 	);

@@ -11,7 +11,7 @@ export const createProject = project => API.post('/api/projects', project);
 export const deleteProject = id => API.delete(`/api/projects/${id}`);
 export const updateProject = (projectId, data) => API.put(`/api/projects/${projectId}`, data);
 export const getProjectWithTodos = id => API.get(`/api/projects/${id}`);
-export const searchForProject = term => API.get(`/api/projects?q=${term}`);
+export const searchForProject = term => API.get(`/api/search?q=${term}`);
 
 export const fetchTasks = projectId => API.get(`/api/projects/${projectId}/tasks`);
 export const createTask = (projectId, content) => API.post(`/api/projects/${projectId}/tasks`, content);

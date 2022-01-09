@@ -78,7 +78,7 @@ const HomeScreen = () => {
 								className="w-100 p-1"
 							></Form.Control>
 						</Form.Group>
-						<Button type="submit" className="w-100 mt-3" onClick={onCreateProject}>
+						<Button type="submit" className="w-100 mt-3" onClick={onCreateProject} disabled={!projectForm.title.trim()}>
 							Create
 						</Button>
 					</form>

@@ -50,7 +50,7 @@ export const searchProject = term => async dispatch => {
 	try {
 		const { data } = await api.searchForProject(term);
 		console.log(data);
-		// dispatch({type: SEARCH_PROJECT, payload: data})
+		dispatch({ type: SEARCH_PROJECT, payload: data });
 	} catch (e) {
 		console.log(e);
 	}

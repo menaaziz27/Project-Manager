@@ -1,9 +1,17 @@
-import { CREATE_PROJECT, DELETE_PROJECT, UPDATE_PROJECT, FETCH_PROJECTS } from '../constants/actionTypes';
+import {
+	CREATE_PROJECT,
+	DELETE_PROJECT,
+	UPDATE_PROJECT,
+	FETCH_PROJECTS,
+	SEARCH_PROJECT,
+} from '../constants/actionTypes';
 
 export const projectReudcer = (state = { projects: [], term: '' }, action) => {
 	switch (action.type) {
 		case FETCH_PROJECTS:
 			return { ...state, projects: action?.payload };
+		case SEARCH_PROJECT:
+			return { ...state, term: action?.payload };
 		case CREATE_PROJECT:
 			return { ...state, projects: [...state.projects, action?.payload] };
 		case UPDATE_PROJECT:

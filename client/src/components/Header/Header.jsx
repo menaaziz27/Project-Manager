@@ -40,7 +40,7 @@ const Header = () => {
 					</LinkContainer>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
-						<Nav className="justify-content-end" style={{ width: '100%' }}>
+						<Nav className="justify-content-end w-100">
 							<LinkContainer to="/">
 								<Nav.Link>Home</Nav.Link>
 							</LinkContainer>
